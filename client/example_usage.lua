@@ -4,6 +4,9 @@ SoundDB.Play('Explosions', '9 - Missile Explo', {
 	angle = Angle()
 })
 
+-- Grab a reference to the sound meta data
+local soundDef = SoundDB.Sounds['Adaptive Music']['Def_Agentish_Combat']
+
 -- Create our music sound object
 local sound = SoundDB.Create('Adaptive Music', 'Def_Agentish_Combat', {
 	position = Camera:GetPosition(),
@@ -13,7 +16,6 @@ local sound = SoundDB.Create('Adaptive Music', 'Def_Agentish_Combat', {
 -- Increase the heat parameter based on how far we are from the sound
 -- This results in higher pitch notes, faster pace, etc.
 Events:Subscribe('PostTick', function()
-	local soundDef = SoundDB.Sounds['Adaptive Music']['Def_Agentish_Combat']
 	local dist = Camera:GetPosition():Distance(sound:GetPosition()) / 10
 	
 	sound:SetParameter( soundDef.Parameters['heat'].Index, math.clamp(dist, 0, 1) )
